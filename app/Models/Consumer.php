@@ -45,6 +45,8 @@ class Consumer extends Authenticatable implements AuthenticatableUserContract
      */
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'role' => 'ROLE_CONSUMER'
+        ];
     }
 }

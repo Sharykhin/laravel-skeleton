@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use  Tymon\JWTAuth\Claims\Custom;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,9 @@ use Illuminate\Http\Request;
 */
 
 Route::post('/user', function (Request $request) {
+    if (Auth::guard('api_consumer')->user()) {
+        return response()->json(['data' => Auth::guard('api_consumer')->user()]);
+    }
     $credentials = $request->only('email', 'password');
     $token = \Auth::guard('api_consumer')->attempt($credentials);
 

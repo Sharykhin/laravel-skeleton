@@ -176,12 +176,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ResponseServiceProvider::class,
         /*
          * Third-party Service Providers...
          */
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
-
     ],
 
     /*

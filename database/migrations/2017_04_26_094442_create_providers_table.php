@@ -19,7 +19,7 @@ class CreateProvidersTable extends Migration
         Schema::create('providers', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->string('email', 80)->unique();
-            $table->string('password', 255);
+            $table->string('password', 60);
             $table->string('shop_name', 80);
             $table->string('location1', 255);
             $table->string('location2', 255)->nullable();

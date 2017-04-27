@@ -36,11 +36,6 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-
         'api_consumer' => [
             'driver' => 'jwt',
             'provider' => 'consumers',
@@ -48,6 +43,10 @@ return [
         'api_provider' => [
             'driver' => 'jwt',
             'provider' => 'providers',
+        ],
+        'api_admin' => [
+            'driver' => 'jwt',
+            'provider' => 'admins',
         ],
     ],
 
@@ -76,7 +75,11 @@ return [
         'providers' => [
             'driver' => 'eloquent',
             'model' => App\Models\Provider::class,
-        ]
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
     ],
 
     /*

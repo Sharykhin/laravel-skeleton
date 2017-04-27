@@ -17,6 +17,8 @@ class ConsumerTableSeeder extends Seeder
         DB::table('consumers')->insert([
             'first_name' => 'foo',
             'email' => 'foo@test.com',
+            'role' => 'ROLE_ADMIN',
+            'is_active' => 1,
             'password' => bcrypt('111111'),
         ]);
     }

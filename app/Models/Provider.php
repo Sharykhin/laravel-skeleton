@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
+use App\Services\Role;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Auth\Authenticatable;
 
 /**
  * Class Provider
@@ -30,4 +31,14 @@ class Provider extends Authenticatable
     protected $hidden = [
         'password', 'activate_token',
     ];
+
+    /**
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [
+            'role' => Role::ROLE_PROVIDER
+        ];
+    }
 }

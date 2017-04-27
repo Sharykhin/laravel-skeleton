@@ -5,9 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateConsumersTable
+ * Class CreateAdminsTable
  */
-class CreateConsumersTable extends Migration
+class CreateAdminsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,16 +16,14 @@ class CreateConsumersTable extends Migration
      */
     public function up()
     {
-        Schema::create('consumers', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->string('email', 80)->unique();
+            $table->string('username', 80)->unique();
             $table->string('password', 60);
             $table->string('first_name', 60);
             $table->string('last_name', 60)->nullable();
-            $table->string('phone_number', 60)->nullable();
-            $table->string('activate_token', 255)->nullable();
+            $table->string('role', 60)->default('ROLE_ADMIN');
             $table->boolean('is_active')->default(0);
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -37,6 +35,6 @@ class CreateConsumersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('consumers');
+        Schema::drop('admins');
     }
 }

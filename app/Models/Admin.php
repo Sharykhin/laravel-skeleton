@@ -10,7 +10,7 @@ use App\Auth\Authenticatable;
  * Class Consumer
  * @package App\Models
  */
-class Consumer extends Authenticatable
+class Admin extends Authenticatable
 {
     use Notifiable;
 
@@ -20,7 +20,7 @@ class Consumer extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'email', 'password',
+        'first_name', 'username', 'password',
     ];
 
     /**
@@ -29,7 +29,7 @@ class Consumer extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'activate_token',
+        'password'
     ];
 
     /**
@@ -38,7 +38,7 @@ class Consumer extends Authenticatable
     public function getJWTCustomClaims()
     {
         return [
-            'role' => Role::ROLE_CONSUMER
+            'role' => Role::ROLE_ADMIN
         ];
     }
 }

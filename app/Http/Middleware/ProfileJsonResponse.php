@@ -26,7 +26,8 @@ class ProfileJsonResponse
             app()->bound('debugbar') &&
             app('debugbar')->isEnabled() &&
             is_object($response->getData()) &&
-            config('app.debug') === true
+            config('app.debug') === true &&
+            filter_var($request->get('debug'), FILTER_VALIDATE_BOOLEAN) === true
         ) {
 
             $response->setData($response->getData(true) + [

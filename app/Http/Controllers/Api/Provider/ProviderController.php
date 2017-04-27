@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api\Provider;
 
+use App\Http\Controllers\Controller;
 use App\Models\Provider;
 use Illuminate\Http\JsonResponse;
 
-class ProviderController
+class ProviderController extends Controller
 {
     public function get(string $id) : JsonResponse
     {

@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Provider;
+use App\Contracts\Services\RoleContract;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Closure;
-//use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+use App\Http\Middleware\BaseMiddleware;
 
 /**
  * Class JWTProviderAuth
@@ -24,21 +24,20 @@ class JWTProviderAuth extends BaseMiddleware
         $newToken = null;
 
         if (! $token = $this->auth->setRequest($request)->getToken()) {
-            return response()->badRequest('token_not_provided');
+            return response()->notAuthorized();
         }
 
         try {
-            $parsedToken = $this->auth->parseToken($token);
-            if ($parsedToken->getClaim('role') === 'ROLE_ADMIN') {
-
-            }
-
-            if($parsedToken->getClaim('role') !== 'ROLE_PROVIDER') {
-                throw new JWTException('token_invalid');
-            }
-
             // Ingore default auth, get user by UUID
             $user = $this->auth->toUser($token);
+
+            if (!$user) {
+                return response()->notFound('Invalid UUID');
+            }
+
+            if (!$this->role->isGranted($user, RoleContract::ROLE_PROVIDER)) {
+                throw new JWTException(trans('auth.token.invalid'));
+            }
 
         } catch (TokenExpiredException $e) {
             // Generate new token and attempt authentication
@@ -46,12 +45,10 @@ class JWTProviderAuth extends BaseMiddleware
             $user = $this->auth->toUser($newToken);
 
         } catch (JWTException $e) {
-            return response()->badRequest('token_invalid');
-
+            return response()->badRequest(trans('auth.token.invalid'));
         }
 
-        //If no such user
-        if (! $user) {
+        if (!$user) {
             return response()->notFound('Invalid UUID');
         }
 

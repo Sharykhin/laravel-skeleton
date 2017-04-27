@@ -12,30 +12,34 @@
 namespace App\Http\Middleware;
 
 use App\Auth\CustomJWTAuth;
-use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use App\Contracts\Services\RoleContract;
 
+/**
+ * Class BaseMiddleware
+ * @package App\Http\Middleware
+ */
 abstract class BaseMiddleware
 {
-    /**
-     * The JWT Authenticator.
-     *
-     * @var \Tymon\JWTAuth\JWTAuth
-     */
+
+    /** @var CustomJWTAuth $auth */
     protected $auth;
 
+    /** @var RoleContract $role */
+    protected $role;
+
     /**
-     * Create a new BaseMiddleware instance.
+     * BaseMiddleware constructor.
      *
-     * @param  \Tymon\JWTAuth\JWTAuth  $auth
-     *
-     * @return void
+     * @param CustomJWTAuth $auth
+     * @param RoleContract $role
      */
-    public function __construct(CustomJWTAuth $auth)
+    public function __construct(CustomJWTAuth $auth, RoleContract $role)
     {
         $this->auth = $auth;
+        $this->role = $role;
     }
 
     /**

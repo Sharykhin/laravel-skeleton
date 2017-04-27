@@ -58,5 +58,12 @@ class ResponseServiceProvider extends ServiceProvider
                 'message' => $error
             ], $code);
         });
+
+        Response::macro('notAuthorized', function (string $error = 'Not authorized', int $code = JsonResponse::HTTP_UNAUTHORIZED) {
+            return Response::json([
+                'success' => false,
+                'message' => $error
+            ], $code);
+        });
     }
 }

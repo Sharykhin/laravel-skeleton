@@ -31,6 +31,6 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
 
-        $this->app->bind(\App\Contracts\Services\RoleContract::class, \App\Services\Role::class);
+        $this->app->bind(\App\Interfaces\Services\IRoleManager::class, \App\Services\RoleManager::class);
     }
 }

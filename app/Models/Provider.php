@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Auth\Rolable;
-use App\Contracts\RolableContract;
-use App\Contracts\Services\RoleContract;
+use App\Auth\RoleHelper;
+use App\Interfaces\Auth\IRole;
+use App\Interfaces\Services\IRoleManager;
 use Illuminate\Notifications\Notifiable;
 use App\Auth\Authenticatable;
 
@@ -12,11 +12,11 @@ use App\Auth\Authenticatable;
  * Class Provider
  * @package App\Models
  */
-class Provider extends Authenticatable implements RolableContract
+class Provider extends Authenticatable implements IRole
 {
-    use Notifiable, Rolable;
+    use Notifiable, RoleHelper;
 
-    const ROLE = RoleContract::ROLE_PROVIDER;
+    const ROLE = IRoleManager::ROLE_PROVIDER;
 
     /**
      * The attributes that are mass assignable.
@@ -42,7 +42,7 @@ class Provider extends Authenticatable implements RolableContract
     public function getJWTCustomClaims()
     {
         return [
-            'role' => RoleContract::ROLE_PROVIDER
+            'role' => IRoleManager::ROLE_PROVIDER
         ];
     }
 }

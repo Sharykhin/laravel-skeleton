@@ -3,10 +3,10 @@
 namespace App\Auth;
 
 /**
- * Class Rolable
+ * Class RoleHelper
  * @package App\Auth
  */
-trait Rolable
+trait RoleHelper
 {
     public function getRole() : string
     {

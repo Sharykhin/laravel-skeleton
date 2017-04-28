@@ -2,23 +2,23 @@
 
 namespace App\Services;
 
-use App\Contracts\RolableContract;
-use App\Contracts\Services\RoleContract;
+use App\Interfaces\Auth\IRole;
+use App\Interfaces\Services\IRoleManager;
 use InvalidArgumentException;
 
 /**
  * Class Role
  * @package App\Services
  */
-class Role implements RoleContract
+class RoleManager implements IRoleManager
 {
     /**
-     * @param RolableContract $user
+     * @param IRole $user
      * @param string $role
      * @return bool
      * @throws \Exception
      */
-    public function isGranted(RolableContract $user, string $role) : bool
+    public function isGranted(IRole $user, string $role) : bool
     {
         $userRole = $user->getRole();
         if (!$this->isSupport($role)) {

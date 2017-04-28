@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Provider;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * Class ProviderController
+ * @package App\Http\Controllers\Api\Provider
+ */
 class ProviderController extends Controller
 {
     public function get(string $id) : JsonResponse

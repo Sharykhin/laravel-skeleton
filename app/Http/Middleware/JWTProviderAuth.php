@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Contracts\Services\RoleContract;
+use App\Interfaces\Services\IRoleManager;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Closure;
@@ -35,7 +35,7 @@ class JWTProviderAuth extends BaseMiddleware
                 return response()->notFound('Invalid UUID');
             }
 
-            if (!$this->role->isGranted($user, RoleContract::ROLE_PROVIDER)) {
+            if (!$this->role->isGranted($user, IRoleManager::ROLE_PROVIDER)) {
                 throw new JWTException(trans('auth.token.invalid'));
             }
 

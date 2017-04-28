@@ -2,6 +2,7 @@
 
 namespace App\Auth;
 
+use App\Contracts\Services\RoleContract;
 use App\Models\Admin;
 use App\Models\Consumer;
 use App\Models\Provider;
@@ -27,13 +28,14 @@ class CustomJWTAuth extends JWTAuth
         $user = null;
 
         switch ($role) {
-            case 'ROLE_PROVIDER':
+            case RoleContract::ROLE_PROVIDER:
                 $user = Provider::find($id);
                 break;
-            case 'ROLE_CONSUMER':
+            case RoleContract::ROLE_CONSUMER:
                 $user = Consumer::find($id);
                 break;
-            case 'ROLE_ADMIN':
+            case RoleContract::ROLE_ADMIN:
+            case RoleContract::ROLE_SUPERADMIN:
                 $user = Admin::find($id);
                 break;
         }

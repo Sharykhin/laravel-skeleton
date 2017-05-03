@@ -3,7 +3,8 @@
 namespace App\Providers;
 
 use App\Decorators\CachingProviderRepository;
-use App\Repositories\Provider\EloquentRepository;
+use App\Repositories\Provider\EloquentRepository as ProviderEloquentRepository;
+use App\Repositories\Consumer\EloquentRepository as ConsumerEloquentRepository;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -31,10 +32,14 @@ class RepositoryServiceProvider extends ServiceProvider
     {
 
         $this->app->singleton(\App\Interfaces\Repositories\IProviderRepository::class, function ($app) {
-            $eloquentRepository = new EloquentRepository();
+            $eloquentRepository = new ProviderEloquentRepository();
             $cacheRepository = new CachingProviderRepository($eloquentRepository, $app['cache.store']);
-
             return $cacheRepository;
+        });
+
+        $this->app->singleton(\App\Interfaces\Repositories\IConsumerRepository::class, function () {
+            $eloquentRepository = new ConsumerEloquentRepository();
+            return $eloquentRepository;
         });
     }
 }

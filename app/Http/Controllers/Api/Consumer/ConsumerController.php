@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Consumer;
 
 use App\Http\Controllers\Controller;
-use App\Models\Consumer;
+use App\Interfaces\Repositories\IConsumerRepository;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -12,9 +12,27 @@ use Illuminate\Http\JsonResponse;
  */
 class ConsumerController extends Controller
 {
+    /** @var IConsumerRepository $consumerRepository */
+    protected $consumerRepository;
+
+    /**
+     * ConsumerController constructor.
+     * @param IConsumerRepository $consumerRepository
+     */
+    public function __construct(
+        IConsumerRepository $consumerRepository
+    )
+    {
+        $this->consumerRepository = $consumerRepository;
+    }
+
+    /**
+     * @param string $id
+     * @return JsonResponse
+     */
     public function get(string $id) : JsonResponse
     {
-        $consumer = Consumer::find($id);
+        $consumer = $this->consumerRepository->findById($id);
 
         return response()->success($consumer);
     }

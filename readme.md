@@ -26,3 +26,9 @@ composer install
 ```bash
 php artisan migrate
 ```
+
+Usage:
+------
+
+To get profile information use ```debug=true``` query parameter
+

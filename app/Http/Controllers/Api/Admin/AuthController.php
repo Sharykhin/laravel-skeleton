@@ -28,9 +28,14 @@ class AuthController extends Controller
     public function login(Request $request) : JsonResponse
     {
         $credentials = $request->only('username', 'password');
-        $token = Auth::guard('api_admin')->attempt($credentials);
+
+        if (!$token = Auth::guard('api_admin')->attempt($credentials)) {
+            return response()->notAuthorized(trans('auth.failed'));
+        };
+
+        $admin = Auth::guard('api_admin')->user();
 
         // all good so return the token
-        return response()->success(compact('token'));
+        return response()->success(compact('toke', 'admin'));
     }
 }

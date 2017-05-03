@@ -2,21 +2,20 @@
 
 namespace App\Models;
 
-use App\Auth\RoleHelper;
-use App\Interfaces\Auth\IRole;
 use App\Interfaces\Services\IRoleManager;
 use Illuminate\Notifications\Notifiable;
 use App\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Consumer
  * @package App\Models
  */
-class Consumer extends Authenticatable implements IRole
+class Consumer extends Authenticatable
 {
-    use Notifiable, RoleHelper;
+    use Notifiable, SoftDeletes;
 
-    const ROLE = IRoleManager::ROLE_CONSUMER;
+    protected $role = IRoleManager::ROLE_CONSUMER;
 
     /**
      * The attributes that are mass assignable.
@@ -42,7 +41,7 @@ class Consumer extends Authenticatable implements IRole
     public function getJWTCustomClaims()
     {
         return [
-            'role' => IRoleManager::ROLE_CONSUMER
+            'role' => $this->role
         ];
     }
 }

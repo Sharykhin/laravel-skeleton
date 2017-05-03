@@ -3,11 +3,14 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
+use HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -49,10 +52,12 @@ class Handler extends ExceptionHandler
     {
         switch ($exception) {
             case ($exception instanceof ModelNotFoundException):
-                return response()->notFound($exception->getMessage());
+                return response()->notFound(trans('app.response.404'));
             case ($exception instanceof ValidationException):
             case ($exception instanceof HttpResponseException):
                 return $exception->getResponse();
+            case ($exception instanceof AuthorizationException):
+                return response()->error(trans('auth.forbidden'), Response::HTTP_FORBIDDEN);
             default:
                 if (config('app.debug') === true) {
                     return parent::render($request, $exception);

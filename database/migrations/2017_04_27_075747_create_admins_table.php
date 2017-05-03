@@ -22,7 +22,7 @@ class CreateAdminsTable extends Migration
             $table->string('password', 60);
             $table->string('first_name', 60);
             $table->string('last_name', 60)->nullable();
-            $table->string('role', 60)->default('ROLE_ADMIN');
+            $table->string('role', 20)->default('ROLE_ADMIN');
             $table->boolean('is_active')->default(0);
             $table->timestamps();
         });

@@ -10,19 +10,8 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group(['prefix' => 'providers', 'namespace'=> 'Provider'], function () {
-
-    Route::post('/login')->uses('AuthController@login');
-
-    Route::get('/{id}')->middleware('auth.api.provider')->uses('ProviderController@get')->where('id', '\d+');
-});
-
-Route::group(['prefix' => 'consumers', 'namespace'=> 'Consumer'], function () {
-
-    Route::post('/login')->uses('AuthController@login');
-
-    Route::get('/{id}')->middleware('auth.api.consumer')->uses('ConsumerController@get')->where('id', '\d+');
-});
+require 'consumers.php';
+require 'providers.php';
 
 Route::group(['prefix' => 'admins', 'namespace'=> 'Admin'], function () {
 

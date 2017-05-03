@@ -2,7 +2,7 @@
 
 namespace App\Auth;
 
-use Illuminate\Foundation\Auth\User;
+use App\Auth\User;
 use Tymon\JWTAuth\Contracts\JWTSubject as AuthenticatableUserContract;
 
 /**

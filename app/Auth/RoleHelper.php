@@ -10,6 +10,6 @@ trait RoleHelper
 {
     public function getRole() : string
     {
-        return self::ROLE;
+        return $this->role;
     }
 }

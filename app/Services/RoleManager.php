@@ -26,10 +26,10 @@ class RoleManager implements IRoleManager
         }
 
         switch ($userRole) {
-            case self::ROLE_SUPERADMIN:
+            case self::ROLE_SUPER_ADMIN:
                 return true;
             case self::ROLE_ADMIN:
-                if ($role === self::ROLE_SUPERADMIN) {
+                if ($role === self::ROLE_SUPER_ADMIN) {
                     return false;
                 } else {
                     return true;
@@ -57,6 +57,6 @@ class RoleManager implements IRoleManager
      */
     private function isSupport(string $role) : bool
     {
-        return in_array($role, [self::ROLE_CONSUMER, self::ROLE_PROVIDER, self::ROLE_ADMIN, self::ROLE_SUPERADMIN]);
+        return in_array($role, [self::ROLE_CONSUMER, self::ROLE_PROVIDER, self::ROLE_ADMIN, self::ROLE_SUPER_ADMIN]);
     }
 }

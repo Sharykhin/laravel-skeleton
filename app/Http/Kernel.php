@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'auth.api.consumer' => \App\Http\Middleware\JWTConsumerAuth::class,
         'auth.api.provider' => \App\Http\Middleware\JWTProviderAuth::class,
+        'auth.api' => \App\Http\Middleware\JWTBaseMiddleware::class,
     ];
 }

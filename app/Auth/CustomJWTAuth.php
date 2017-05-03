@@ -35,7 +35,7 @@ class CustomJWTAuth extends JWTAuth
                 $user = Consumer::find($id);
                 break;
             case IRoleManager::ROLE_ADMIN:
-            case IRoleManager::ROLE_SUPERADMIN:
+            case IRoleManager::ROLE_SUPER_ADMIN:
                 $user = Admin::find($id);
                 break;
         }

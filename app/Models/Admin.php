@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Auth\RoleHelper;
-use App\Interfaces\Auth\IRole;
-use App\Interfaces\Services\IRoleManager;
 use Illuminate\Notifications\Notifiable;
 use App\Auth\Authenticatable;
 
@@ -12,11 +9,9 @@ use App\Auth\Authenticatable;
  * Class Consumer
  * @package App\Models
  */
-class Admin extends Authenticatable implements IRole
+class Admin extends Authenticatable
 {
-    use Notifiable, RoleHelper;
-
-    const ROLE = IRoleManager::ROLE_ADMIN;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +19,7 @@ class Admin extends Authenticatable implements IRole
      * @var array
      */
     protected $fillable = [
-        'first_name', 'username', 'password',
+        'first_name', 'username', 'password', 'role', 'is_active', 'last_name'
     ];
 
     /**
@@ -42,7 +37,7 @@ class Admin extends Authenticatable implements IRole
     public function getJWTCustomClaims()
     {
         return [
-            'role' => IRoleManager::ROLE_ADMIN
+            'role' => $this->role
         ];
     }
 }

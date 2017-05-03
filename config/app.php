@@ -236,6 +236,10 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        /*
+         * App Facades
+         */
+        'RoleManager' => \App\Facades\RoleManager::class,
     ],
 
 ];

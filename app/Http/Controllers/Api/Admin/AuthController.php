@@ -36,6 +36,6 @@ class AuthController extends Controller
         $admin = Auth::guard('api_admin')->user();
 
         // all good so return the token
-        return response()->success(compact('toke', 'admin'));
+        return response()->success(compact('token', 'admin'));
     }
 }

@@ -3,6 +3,7 @@ namespace App\Policies;
 
 use App\Models\Provider;
 use App\Auth\User;
+use App\Facades\RoleManager;
 
 /**
  * Class ProviderPolicy
@@ -31,6 +32,6 @@ class ProviderPolicy
      */
     public function delete(User $user, Provider $provider) : bool
     {
-        return $user->id === $provider->id;
+        return (($user->id === $provider->id) || RoleManager::isGranted($user, $provider->getRole()));
     }
 }

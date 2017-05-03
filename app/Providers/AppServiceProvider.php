@@ -32,5 +32,6 @@ class AppServiceProvider extends ServiceProvider
         }
 
         $this->app->bind(\App\Interfaces\Services\IRoleManager::class, \App\Services\RoleManager::class);
+        $this->app->alias(\App\Interfaces\Services\IRoleManager::class, 'role_manager');
     }
 }

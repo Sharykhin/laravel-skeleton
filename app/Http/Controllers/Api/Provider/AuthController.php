@@ -31,8 +31,9 @@ class AuthController extends Controller
         if (!$token = Auth::guard('api_provider')->attempt($credentials)) {
             return response()->notAuthorized(trans('auth.failed'));
         };
+        $provider = Auth::guard('api_provider')->user();
 
         // all good so return the token
-        return response()->success(compact('token'));
+        return response()->success(compact('token', 'provider'));
     }
 }

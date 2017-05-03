@@ -32,6 +32,9 @@ class ProviderRemove
         $this->providerRepository = $providerRepository;
     }
 
+    /**
+     * @param ProviderRemoved $event
+     */
     public function handle(ProviderRemoved $event) : void
     {
         $this->cache->forget('providers.count');

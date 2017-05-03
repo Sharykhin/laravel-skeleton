@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Provider;
 
 use App\Http\Controllers\Controller;
-use App\Models\Provider;
+use App\Interfaces\Repositories\IProviderRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -13,13 +13,41 @@ use Illuminate\Http\Request;
  */
 class ProviderController extends Controller
 {
+    /** @var IProviderRepository $providerRepository */
+    protected $providerRepository;
+
+    /**
+     * ProviderController constructor.
+     * @param IProviderRepository $providerRepository
+     */
+    public function __construct(
+        IProviderRepository $providerRepository
+    )
+    {
+        $this->providerRepository = $providerRepository;
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request) : JsonResponse
+    {
+        $limit = (int) $request->get('limit') ?: 10;
+        $offset = (int) $request->get('offset') ?: 0;
+        $total = $this->providerRepository->count();
+        $providers = $this->providerRepository->findAll($offset ?: 0, $limit);
+
+        return response()->success($providers, compact('total', 'limit', 'offset'));
+    }
+
     /**
      * @param string $id
      * @return JsonResponse
      */
     public function get(string $id) : JsonResponse
     {
-        $provider = Provider::findOrFail($id);
+        $provider = $this->providerRepository->findById($id);
 
         return response()->success($provider);
     }
@@ -31,7 +59,7 @@ class ProviderController extends Controller
      */
     public function update(Request $request, string $id) : JsonResponse
     {
-        $provider = Provider::findOrFail($id);
+        $provider = $this->providerRepository->findById($id);
 
         $this->authorize('update', $provider);
 
@@ -46,7 +74,7 @@ class ProviderController extends Controller
      */
     public function delete(string $id) : JsonResponse
     {
-        $provider = Provider::findOrFail($id);
+        $provider = $this->providerRepository->findById($id);
 
         $this->authorize('delete', $provider);
 

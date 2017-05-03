@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Provider;
 
+use App\Events\ProviderRemoved;
 use App\Http\Controllers\Controller;
 use App\Interfaces\Repositories\IProviderRepository;
 use Illuminate\Http\JsonResponse;
@@ -79,6 +80,8 @@ class ProviderController extends Controller
         $this->authorize('delete', $provider);
 
         $provider->delete();
+
+        event(new ProviderRemoved($provider));
 
         return response()->success($provider);
     }
